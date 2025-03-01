@@ -73,6 +73,7 @@ function App() {
 	return (
 		<div className="App">
 			<div className="App-header">Waffle House Disaster Tracker</div>
+
 			<div className="App-body">
 				{graphData.labels.length > 0 ? (
 					<div>
@@ -83,6 +84,7 @@ function App() {
 					<p>Loading graph data...</p>
 				)}
 			</div>
+
 			<div className="App-footer">
 				<p>Made By:</p>
 				<p>
