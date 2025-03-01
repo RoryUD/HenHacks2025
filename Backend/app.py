@@ -32,9 +32,9 @@ def get_hurricane_data():
 
         # Plotting the data
         plt.figure(figsize=(10, 6))
-        plt.plot(df['Pressure'],df['Date'], label='Pressure')
-        plt.xlabel('Pressure')
-        plt.ylabel('Date')
+        plt.plot(df['Date'], df['Pressure'], label='Pressure')
+        plt.xlabel('Date')
+        plt.ylabel('Pressure (hPa)')
         plt.title('Hurricane Pressure Over Time')
         plt.grid(True)
         plt.xticks(rotation=45)
