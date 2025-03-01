@@ -13,7 +13,7 @@ def get_hurricane_data():
     # Correct file path using raw string literal or forward slashes
     try:
         # Use raw string (r"") or forward slashes (/) for file path
-        df = pd.read_csv(r"../henhacks2025/Backend/Hurricanedata/2005-2006.csv")  # Use the correct path
+        df = pd.read_csv(r"2005-2006.csv")  # Use the correct path
         print(df)  # Optionally print the dataframe to debug
         # Perform any necessary processing on the data, e.g., filtering by year, location, etc.
         print("Current working directory:", os.getcwd())
