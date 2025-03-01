@@ -7,6 +7,7 @@ import {
   ChartData,
   TooltipItem,
 } from "chart.js/auto";
+import "./App.css";
 
 function App() {
   // Define the GraphData interface to type the state
@@ -67,20 +68,32 @@ function App() {
     ],
   };
 
-  return (
-    <div className="App">
-      <h1>Waffle House Disaster Tracker</h1>
-
-      {graphData.labels.length > 0 ? (
-        <div>
-          <h2>Disaster Frequency per Location</h2>
-          <Line data={chartData} options={chartOptions} />
-        </div>
-      ) : (
-        <p>Loading graph data...</p>
-      )}
-    </div>
-  );
+	return (
+		<div className="App">
+			<div className="App-header">Waffle House Disaster Tracker</div>
+			<div className="App-body">
+				{graphData.labels.length > 0 ? (
+					<div>
+						<h2>Disaster Frequency per Location</h2>
+						<Line data={chartData} options={chartOptions} />
+					</div>
+				) : (
+					<p>Loading graph data...</p>
+				)}
+			</div>
+			<div className="App-footer">
+				<p>Made By:</p>
+				<p>
+					<a href="https://github.com/aghoy9">Alex Hoy</a> ,
+					<a href="https://github.com/Dtrieu728">
+						Dustine Trieu
+					</a>{" "}
+					, and{" "}
+					<a href="https://github.com/RoryUD">Rory Jordan</a>
+				</p>
+			</div>
+		</div>
+	);
 }
 
 export default App;
