@@ -2,7 +2,7 @@
 	"name": "frontend",
 	"version": "0.1.0",
 	"private": true,
-	"homepage": "https://RoryUD.github.io/HenHacks2025",
+	"homepage": "https://RoryUD.github.io/HenHacks2025/index.tsx",
 	"dependencies": {
 		"@testing-library/dom": "^10.4.0",
 		"@testing-library/jest-dom": "^6.6.3",
