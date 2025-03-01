@@ -2,72 +2,71 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Line } from "react-chartjs-2";
 import {
-	Chart as ChartJS,
-	ChartOptions,
-	ChartData,
-	TooltipItem,
+  Chart as ChartJS,
+  ChartOptions,
+  ChartData,
+  TooltipItem,
 } from "chart.js/auto";
 import "./App.css";
 
 function App() {
-	// Define the GraphData interface to type the state
-	interface GraphData {
-		labels: string[];
-		data: number[];
-	}
+  // Define the GraphData interface to type the state
+  interface GraphData {
+    labels: string[];
+    data: number[];
+  }
 
-	// Use GraphData or an empty array for initial state to avoid null
-	const [graphData, setGraphData] = useState<GraphData>({
-		labels: [],
-		data: [],
-	});
+  // Use GraphData or an empty array for initial state to avoid null
+  const [graphData, setGraphData] = useState<GraphData>({
+    labels: [],
+    data: [],
+  });
 
-	useEffect(() => {
-		// Fetch graph data from the Flask API
-		axios.get("http://127.0.0.1:5000/api/graph-data")
-			.then((response) => {
-				setGraphData(response.data);
-			})
-			.catch((error) => {
-				console.error(
-					"There was an error fetching the graph data!",
-					error
-				);
-			});
-	}, []);
+  useEffect(() => {
+    // Fetch graph data from the Flask API
+    axios
+      .get("http://127.0.0.1:5000/api/graph-data")
+      .then((response) => {
+        console.log("Graph Data:", response.data);  // Log the response data
+        setGraphData(response.data);
+      })
+      .catch((error) => {
+        console.error("There was an error fetching the graph data!", error);
+      });
+  }, []);
 
-	// Type for chart options
-	const chartOptions: ChartOptions<"line"> = {
-		responsive: true,
-		plugins: {
-			legend: {
-				position: "top", // 'top' position does not need `as const`
-			},
-			tooltip: {
-				callbacks: {
-					label: function (tooltipItem: TooltipItem<"line">) {
-						// Assert the type of tooltipItem.raw as number
-						const value = tooltipItem.raw as number;
-						return `Disasters: ${value}`;
-					},
-				},
-			},
-		},
-	};
+  // Type for chart options
+  const chartOptions: ChartOptions<"line"> = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top", // 'top' position does not need `as const`
+      },
+      tooltip: {
+        callbacks: {
+          label: function (tooltipItem: TooltipItem<"line">) {
+            // Assert the type of tooltipItem.raw as number
+            const value = tooltipItem.raw as number;
+            return `Disasters: ${value}`;
+          },
+        },
+      },
+    },
+  };
 
-	// Explicitly type chartData as ChartData<'line'>
-	const chartData: ChartData<"line"> = {
-		labels: graphData.labels,
-		datasets: [
-			{
-				label: "Number of Disasters",
-				data: graphData.data,
-				borderColor: "rgba(75, 192, 192, 1)",
-				backgroundColor: "rgba(75, 192, 192, 0.2)",
-				borderWidth: 1,
-			},
-		],
-	};
+  // Explicitly type chartData as ChartData<'line'>
+  const chartData: ChartData<"line"> = {
+    labels: graphData.labels,
+    datasets: [
+      {
+        label: "Number of Disasters",
+        data: graphData.data,
+        borderColor: "rgba(75, 192, 192, 1)",
+        backgroundColor: "rgba(75, 192, 192, 0.2)",
+        borderWidth: 1,
+      },
+    ],
+  };
 
 	return (
 		<div className="App">

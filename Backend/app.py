@@ -1,18 +1,18 @@
-# app.py (Flask)
+import pandas as pd
 from flask import Flask, jsonify
-from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS to allow React to make requests
 
-@app.route('/api/graph-data', methods=['GET'])
-def get_graph_data():
-    # Example graph data: number of disasters per Waffle House location
-    graph_data = {
-        "labels": ["Waffle House A", "Waffle House B", "Waffle House C", "Waffle House D"],
-        "data": [5, 8, 2, 3]  # Corresponding disaster counts
-    }
-    return jsonify(graph_data)
+@app.route('/api/hurricane-data', methods=['GET'])
+def get_hurricane_data():
+    # Example: Load and process hurricane data from a CSV file
+    try:
+        df = pd.read_csv('path_to_your_hurricane_data.csv')
+        # Perform any necessary processing on the data, e.g., filtering by year, location, etc.
+        # For simplicity, let's just return the data as JSON
+        return jsonify(df.to_dict(orient='records'))  # Convert to a list of dictionaries
+    except Exception as e:
+        return jsonify({"error": f"Failed to load or process data: {str(e)}"}), 500
 
 if __name__ == "__main__":
     app.run(debug=True)
