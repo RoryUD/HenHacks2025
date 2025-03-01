@@ -1,17 +1,79 @@
-import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
-import { appendFile } from "fs";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { Line } from 'react-chartjs-2';
+import { Chart as ChartJS, ChartOptions, ChartData, TooltipItem } from 'chart.js/auto';
 
 function App() {
-	return (
-		<div className="App">
-			<header className="App-header">
-				<img src={logo} className="App-logo" alt="logo" />
-				<p>HenHacks 2025 Submission!</p>
-			</header>
-		</div>
-	);
+  // Define the GraphData interface to type the state
+  interface GraphData {
+    labels: string[];
+    data: number[];
+  }
+
+  // Use GraphData or an empty array for initial state to avoid null
+  const [graphData, setGraphData] = useState<GraphData>({
+    labels: [],
+    data: []
+  });
+
+  useEffect(() => {
+    // Fetch graph data from the Flask API
+    axios.get('http://127.0.0.1:5000/api/graph-data')
+      .then(response => {
+        setGraphData(response.data);
+      })
+      .catch(error => {
+        console.error('There was an error fetching the graph data!', error);
+      });
+  }, []);
+
+  // Type for chart options
+  const chartOptions: ChartOptions<'line'> = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top', // 'top' position does not need `as const`
+      },
+      tooltip: {
+        callbacks: {
+          label: function (tooltipItem: TooltipItem<'line'>) {
+            // Assert the type of tooltipItem.raw as number
+            const value = tooltipItem.raw as number;
+            return `Disasters: ${value}`;
+          }
+        }
+      }
+    }
+  };
+
+  // Explicitly type chartData as ChartData<'line'>
+  const chartData: ChartData<'line'> = {
+    labels: graphData.labels,
+    datasets: [
+      {
+        label: 'Number of Disasters',
+        data: graphData.data,
+        borderColor: 'rgba(75, 192, 192, 1)',
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  return (
+    <div className="App">
+      <h1>Waffle House Disaster Tracker</h1>
+      
+      {graphData.labels.length > 0 ? (
+        <div>
+          <h2>Disaster Frequency per Location</h2>
+          <Line data={chartData} options={chartOptions} />
+        </div>
+      ) : (
+        <p>Loading graph data...</p>
+      )}
+    </div>
+  );
 }
 
 export default App;
