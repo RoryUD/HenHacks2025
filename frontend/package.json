@@ -41,6 +41,12 @@
     ]
   },
   "devDependencies": {
-    "@types/react": "^19.0.10"
-  }
+    "@types/react": "^19.0.10",
+    "gh-pages": "^6.3.0"
+  },
+  "homepage": "https://RoryUD.github.io/HenHacks2025",
+  "scripts": {
+  "predeploy": "npm run build",
+  "deploy": "gh-pages -d build",
+}
 }
