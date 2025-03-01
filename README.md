@@ -4,6 +4,7 @@ Submission for HenHacks 2025
 
 Dependencies:
 
+-    npm (Version 10.2.4)
 -    Node.js
 -    Yarn
 -    Python
