@@ -8,3 +8,6 @@ Dependencies:
 -    Node.js
 -    Yarn
 -    Python
+-    Axios
+-    react-chartjs-2
+-    react-scripts
