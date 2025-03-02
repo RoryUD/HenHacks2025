@@ -11,3 +11,4 @@ Dependencies:
 -    Axios
 -    react-chartjs-2
 -    react-scripts
+-    gh-pages
