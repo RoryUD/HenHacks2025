@@ -8,6 +8,9 @@ import {
 	TooltipItem,
 } from "chart.js/auto";
 import "./App.css";
+import plot1 from './Plots/hurricane_pressure_plot.png'
+import plot2 from './Plots/hurricane_pressure_regression_plot.png'
+import plot3 from './Plots/hurricane_pressure_scatter_plot.png'
 
 function App() {
 	// Define the GraphData interface to type the state
@@ -83,6 +86,15 @@ function App() {
 				) : (
 					<p>Loading graph data...</p>
 				)}
+				<div>
+					<img src={require(plot1)} width="628px" height="417px" alt="Plot1" />
+				</div>
+				<div>
+					<img src={require(plot2)} width="628px" height="417px" alt="Plot1" />
+				</div>
+				<div>
+					<img src={require(plot3)} width="628px" height="417px" alt="Plot1" />
+				</div>
 			</div>
 
 			<div className="App-footer">
