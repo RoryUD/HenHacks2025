@@ -6,11 +6,11 @@ overpass_url = "http://overpass-api.de/api/interpreter"
 # Example query to find businesses (e.g., restaurants, grocery stores)
 overpass_query = """
 [out:json];
-area[name="New York"];  // Use your desired location or city name
+area[name="Louisiana"];  
 (
-  node["shop"](area);
-  way["shop"](area);
-  relation["shop"](area);
+  node[name="Waffle House"](area);
+  way["restaurant"](area);
+  relation["restaurant"](area);
 );
 out body;
 """
